@@ -13,7 +13,6 @@ public interface AvaliacaoDAO {
 	public void excluirAvaliacao(long id);
 	
 	public Avaliacao buscarPorId(long id);
-	public List<Avaliacao> buscarTodas();
 	public List<Avaliacao> buscarPorUsuario(Usuario usuario); 
 	public float calcularMedia();
 	

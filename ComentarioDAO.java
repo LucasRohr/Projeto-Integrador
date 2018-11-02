@@ -19,7 +19,7 @@ public class ComentarioDAO {
 	
 	public ComentarioDAO() {
 		super();
-		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "programador2000");
+		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "");
 	}
 
 	public Comentario publicar(Comentario comentario) {
@@ -121,7 +121,7 @@ public class ComentarioDAO {
 					comentario.setIdComentario(rs.getLong("id_comentario"));
 					comentario.setAutor(autor);
 					comentario.setTexto(rs.getString("texto"));
-					comentario.setData(rs.getString("data"));
+					comentario.setData(rs.getString("data_hora"));
 					comentario.setAlbum(album);
 					listaComentarios.add(comentario);
 				}
@@ -157,7 +157,7 @@ public class ComentarioDAO {
 					comentario.setIdComentario(rs.getLong("id_comentario"));
 					comentario.setAutor(autor);
 					comentario.setTexto(rs.getString("texto"));
-					comentario.setData(rs.getString("data"));
+					comentario.setData(rs.getString("data_hora"));
 					comentario.setAlbum(album);
 				}
 			} catch (SQLException e) {
@@ -189,7 +189,7 @@ public class ComentarioDAO {
 					comentario.setIdComentario(rs.getLong("id_comentario"));
 					comentario.setAutor(autor);
 					comentario.setTexto(rs.getString("texto"));
-					comentario.setData(rs.getString("data"));
+					comentario.setData(rs.getString("data_hora"));
 					comentario.setAlbum(album);
 				}
 			} catch (SQLException e) {
@@ -218,10 +218,11 @@ public class ComentarioDAO {
 					autor = new Usuario(rs.getLong("id_usuario"), rs.getString("usuario_login"), 
 							rs.getString("usuario_senha"));
 					
+					comentario = new Comentario();
 					comentario.setIdComentario(rs.getLong("id_comentario"));
 					comentario.setAutor(autor);
 					comentario.setTexto(rs.getString("texto"));
-					comentario.setData(rs.getString("data"));
+					comentario.setData(rs.getString("data_hora"));
 					comentario.setAlbum(album);				
 				}
 			} catch (SQLException e) {

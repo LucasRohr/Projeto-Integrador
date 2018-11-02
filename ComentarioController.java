@@ -44,7 +44,7 @@ public class ComentarioController {
 	}	
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<Comentario>> buscarTodosComentario() {
+    public ResponseEntity<List<Comentario>> buscarTodosComentarios() {
 		comentarioDAO = new ComentarioDAO();
 		List<Comentario> listaComentarios = comentarioDAO.buscarTodosComentarios();		
 		return new ResponseEntity<List<Comentario>>(listaComentarios, HttpStatus.OK);
@@ -76,7 +76,7 @@ public class ComentarioController {
 	}
 	
 	@RequestMapping(value = "{id_album}", method = RequestMethod.GET)
-	public ResponseEntity<Comentario> buscarPorAutor(@PathVariable Album album) {
+	public ResponseEntity<Comentario> buscarPorAlbum(@PathVariable Album album) {
 		comentarioDAO = new ComentarioDAO();
 		Comentario comentario = comentarioDAO.buscarPorAlbum(album);
 		if(comentario != null) {

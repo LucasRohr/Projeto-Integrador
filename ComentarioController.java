@@ -63,17 +63,17 @@ public class ComentarioController {
 		}
 	}
 
-	@RequestMapping(value = "{id_usuario}", method = RequestMethod.GET)
-	public ResponseEntity<Comentario> buscarPorAutor(@PathVariable Usuario autor) {
-		comentarioDAO = new ComentarioDAO();
-		Comentario comentario = comentarioDAO.buscarPorAutor(autor);
-		if(comentario != null) {
-			return new ResponseEntity<Comentario>(comentario, HttpStatus.FOUND);
-		}else{
-			return new ResponseEntity<Comentario>(HttpStatus.NOT_FOUND);
-
-		}
-	}
+//	@RequestMapping(value = "{id_usuario}", method = RequestMethod.GET)
+//	public ResponseEntity<Comentario> buscarPorAutor(@PathVariable long id) {
+//		comentarioDAO = new ComentarioDAO();
+//		Comentario comentario = comentarioDAO.buscarPorAutor(usuario);
+//		if(comentario != null) {
+//			return new ResponseEntity<Comentario>(comentario, HttpStatus.FOUND);
+//		}else{
+//			return new ResponseEntity<Comentario>(HttpStatus.NOT_FOUND);
+//
+//		}
+//	}
 	
 	@RequestMapping(value = "{id_album}", method = RequestMethod.GET)
 	public ResponseEntity<Comentario> buscarPorAlbum(@PathVariable Album album) {

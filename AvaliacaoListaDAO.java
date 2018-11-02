@@ -162,16 +162,16 @@ public class AvaliacaoListaDAO implements AvaliacaoDAO {
 			return avaliacaoLista;
 		}	
 		
-		public float calcularMedia(AvaliacaoLista avaliacaoLista) {
+		public float calcularMediaLista(Lista lista) {
 			// ABRIR A CONEXÃO COM O BANCO
 			this.conexao.abrirConexao();
 			// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
-			String sqlInsert = "SELECT AVG(?) FROM Avaliacao_Lista;";
+			String sqlInsert = "SELECT AVG(avaliacao_lista) FROM Avaliacao_Lista WHERE id_lista=?;";
 			PreparedStatement statement;
 			float media = 0;
 			try {
 				statement = this.conexao.getConexao().prepareStatement(sqlInsert);
-				statement.setFloat(1, avaliacaoLista.getAvaliacao());
+				statement.setLong(1, lista.getIdLista());
 				ResultSet rs = statement.executeQuery();
 				if(rs.next()) {
 					// Converter um objeto ResultSet em um objeto avaliacaoLista

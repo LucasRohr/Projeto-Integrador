@@ -14,7 +14,7 @@ import com.melodiam.model.Album;
 import com.melodiam.persistencia.AlbumDAO;
 
 @Controller    
-@RequestMapping(path="/usuario/") 
+@RequestMapping(path="/album/") 
 public class AlbumController {
 
 	private AlbumDAO albumDAO;

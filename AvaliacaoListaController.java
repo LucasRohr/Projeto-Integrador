@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.melodiam.model.Album;
 import com.melodiam.model.Avaliacao;
 import com.melodiam.model.AvaliacaoLista;
+import com.melodiam.model.Lista;
 import com.melodiam.model.Usuario;
 import com.melodiam.persistencia.AvaliacaoListaDAO;
 
@@ -24,69 +25,68 @@ public class AvaliacaoListaController {
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<AvaliacaoLista> cadastrarAvaliacao(@RequestBody Avaliacao avaliacao) {
-		AvaliacaoListaDAO avaliacaoListaDAO = new AvaliacaoListaDAO();
-		avaliacao = avaliacaoListaDAO.cadastrarAvaliacao(avaliacao);
+		AvaliacaoListaDAO = new AvaliacaoListaDAO();
+		avaliacao = AvaliacaoListaDAO.cadastrarAvaliacao(avaliacao);
 		return new ResponseEntity<AvaliacaoLista>((AvaliacaoLista) avaliacao, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.PUT)
 	public ResponseEntity<Void> editarAvaliacao(@RequestBody Avaliacao avaliacao) {
-		AvaliacaoListaDAO avaliacaoListaDAO = new AvaliacaoListaDAO();
-		avaliacaoListaDAO.editarAvaliacao(avaliacao);;
+		AvaliacaoListaDAO = new AvaliacaoListaDAO();
+		AvaliacaoListaDAO.editarAvaliacao(avaliacao);;
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}	
 	
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> excluirAvaliacao(@PathVariable long id) {
-		AvaliacaoListaDAO avaliacaoListaDAO = new AvaliacaoListaDAO();
-		avaliacaoListaDAO.excluirAvaliacao(id);
+		AvaliacaoListaDAO = new AvaliacaoListaDAO();
+		AvaliacaoListaDAO.excluirAvaliacao(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}	
 	
 	@RequestMapping(value = "{usuario}", method = RequestMethod.GET)
     public ResponseEntity<List<Avaliacao>> buscarPorUsuario(@PathVariable Usuario usuario) {
-		AvaliacaoListaDAO avaliacaoListaDAO = new AvaliacaoListaDAO();
-		List<Avaliacao> listaAvaliacaoListas = avaliacaoListaDAO.buscarPorUsuario(usuario);		
-		return new ResponseEntity<List<Avaliacao>>(listaAvaliacaoListas, HttpStatus.OK);
+		AvaliacaoListaDAO = new AvaliacaoListaDAO();
+		List<Avaliacao> listaAvaliacoesListas = AvaliacaoListaDAO.buscarPorUsuario(usuario);		
+		return new ResponseEntity<List<Avaliacao>>(listaAvaliacoesListas, HttpStatus.OK);
 		
 	}
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public ResponseEntity<AvaliacaoLista> buscarPorId(@PathVariable long id) {
 		AvaliacaoListaDAO = new AvaliacaoListaDAO();
-		AvaliacaoLista AvaliacaoLista = AvaliacaoListaDAO.buscarPorId(id);
-		if(AvaliacaoLista != null) {
-			return new ResponseEntity<AvaliacaoLista>(AvaliacaoLista, HttpStatus.FOUND);
+		AvaliacaoLista avaliacaoLista = AvaliacaoListaDAO.buscarPorId(id);
+		if(avaliacaoLista != null) {
+			return new ResponseEntity<AvaliacaoLista>(avaliacaoLista, HttpStatus.FOUND);
 		}else{		
 			return new ResponseEntity<AvaliacaoLista>(HttpStatus.NOT_FOUND);
 
 		}
 	}
-
-//	@RequestMapping(value = "{id_AvaliacaoLista}", method = RequestMethod.GET)
-//	public ResponseEntity<AvaliacaoLista> buscarPorAutor(@PathVariable AvaliacaoLista autor) {
-//		AvaliacaoListaDAO = new AvaliacaoListaDAO();
-//		AvaliacaoLista AvaliacaoLista = AvaliacaoListaDAO.buscarPorAutor(autor);
-//		if(AvaliacaoLista != null) {
-//			return new ResponseEntity<AvaliacaoLista>(AvaliacaoLista, HttpStatus.FOUND);
-//		}else{
-//			return new ResponseEntity<AvaliacaoLista>(HttpStatus.NOT_FOUND);
-//
-//		}
-//	}
-//	
-//	@RequestMapping(value = "{id_album}", method = RequestMethod.GET)
-//	public ResponseEntity<AvaliacaoLista> buscarPorAlbum(@PathVariable Album album) {
-//		AvaliacaoListaDAO = new AvaliacaoListaDAO();
-//		AvaliacaoLista AvaliacaoLista = AvaliacaoListaDAO.buscarPorAlbum(album);
-//		if(AvaliacaoLista != null) {
-//			return new ResponseEntity<AvaliacaoLista>(AvaliacaoLista, HttpStatus.FOUND);
-//		}else{
-//			return new ResponseEntity<AvaliacaoLista>(HttpStatus.NOT_FOUND);
-//
-//		}
-//	}
 	
+	@RequestMapping(value = "{lista}", method = RequestMethod.GET)
+	public ResponseEntity<Float> calcularMediaLista(@PathVariable Lista lista) {
+		AvaliacaoListaDAO = new AvaliacaoListaDAO();
+		float avaliacaoLista = AvaliacaoListaDAO.calcularMediaLista(lista);
+		return new ResponseEntity<Float>(avaliacaoLista, HttpStatus.OK);
+	}
 
+
+	
+	@RequestMapping(value = "{lista}", method = RequestMethod.GET)
+	public ResponseEntity<AvaliacaoLista> buscarPorLista(@PathVariable Lista lista) {
+		AvaliacaoListaDAO = new AvaliacaoListaDAO();
+		AvaliacaoLista avaliacoesLista = (AvaliacaoLista) AvaliacaoListaDAO.buscarPorLista(lista);
+		if(avaliacoesLista != null) {
+			return new ResponseEntity<AvaliacaoLista>(avaliacoesLista, HttpStatus.FOUND);
+		}else{
+			return new ResponseEntity<AvaliacaoLista>(HttpStatus.NOT_FOUND);
+
+		}
+	}
+	
+	
+	
+	
 }

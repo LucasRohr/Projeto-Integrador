@@ -19,7 +19,7 @@ public class ComentarioDAO {
 	
 	public ComentarioDAO() {
 		super();
-		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "");
+		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "programador2000");
 	}
 
 	public Comentario publicar(Comentario comentario) {
@@ -77,7 +77,7 @@ public class ComentarioDAO {
 	}
 	
 	// DELETE FROM usuario WHERE id_usuario=3;
-		public void excluir(long id) {
+		public void excluirComentario(long id) {
 			// ABRIR A CONEXÃO COM O BANCO
 			this.conexao.abrirConexao();
 			// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
@@ -97,7 +97,7 @@ public class ComentarioDAO {
 		}
 	
 		// SELECT * FROM usuario;
-		public List<Comentario> buscarTodos() {
+		public List<Comentario> buscarTodosComentarios() {
 			// ABRIR A CONEXÃO COM O BANCO
 			this.conexao.abrirConexao();
 			// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
@@ -121,7 +121,7 @@ public class ComentarioDAO {
 					comentario.setIdComentario(rs.getLong("id_comentario"));
 					comentario.setAutor(autor);
 					comentario.setTexto(rs.getString("texto"));
-					comentario.setData(rs.getString("data_hora"));
+					comentario.setData(rs.getString("data"));
 					comentario.setAlbum(album);
 					listaComentarios.add(comentario);
 				}
@@ -157,7 +157,7 @@ public class ComentarioDAO {
 					comentario.setIdComentario(rs.getLong("id_comentario"));
 					comentario.setAutor(autor);
 					comentario.setTexto(rs.getString("texto"));
-					comentario.setData(rs.getString("data_hora"));
+					comentario.setData(rs.getString("data"));
 					comentario.setAlbum(album);
 				}
 			} catch (SQLException e) {
@@ -169,7 +169,7 @@ public class ComentarioDAO {
 		}	
 
 		// SELECT * FROM usuario WHERE login=? AND senha=?;
-		public Comentario buscarPorAutor(Usuario autor) {
+		public Comentario buscarPorAutor(long id) {
 			// ABRIR A CONEXÃO COM O BANCO
 			this.conexao.abrirConexao();
 			// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
@@ -179,17 +179,17 @@ public class ComentarioDAO {
 			Album album = null;
 			try {
 				statement = this.conexao.getConexao().prepareStatement(sqlInsert);
-				statement.setLong(1, autor.getIdUsuario());
+				statement.setLong(1, id);
 				ResultSet rs = statement.executeQuery();
 				if(rs.next()) {
 					comentario = new Comentario();
-					
+					Usuario autor = new Usuario();
 					album = new Album(rs.getString("id_spotify"), rs.getLong("id_album"));
 					
 					comentario.setIdComentario(rs.getLong("id_comentario"));
 					comentario.setAutor(autor);
 					comentario.setTexto(rs.getString("texto"));
-					comentario.setData(rs.getString("data_hora"));
+					comentario.setData(rs.getString("data"));
 					comentario.setAlbum(album);
 				}
 			} catch (SQLException e) {
@@ -200,7 +200,7 @@ public class ComentarioDAO {
 			return comentario;
 		}
 		
-		public Comentario buscarPorAlbum(Album album) {
+		public Comentario buscarPorAlbum(long id) {
 			// ABRIR A CONEXÃO COM O BANCO
 			this.conexao.abrirConexao();
 			// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
@@ -210,19 +210,19 @@ public class ComentarioDAO {
 			Usuario autor = null;
 			try {
 				statement = this.conexao.getConexao().prepareStatement(sqlInsert);
-				statement.setLong(1, album.getIdAlbum());
+				statement.setLong(1, id);
 				ResultSet rs = statement.executeQuery();
 				if(rs.next()) {
 					// Converter um objeto ResultSet em um objeto Comentario
-					
+					Album album = new Album();
+					comentario = new Comentario();
 					autor = new Usuario(rs.getLong("id_usuario"), rs.getString("usuario_login"), 
 							rs.getString("usuario_senha"));
 					
-					comentario = new Comentario();
 					comentario.setIdComentario(rs.getLong("id_comentario"));
 					comentario.setAutor(autor);
 					comentario.setTexto(rs.getString("texto"));
-					comentario.setData(rs.getString("data_hora"));
+					comentario.setData(rs.getString("data"));
 					comentario.setAlbum(album);				
 				}
 			} catch (SQLException e) {

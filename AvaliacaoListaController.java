@@ -45,10 +45,10 @@ public class AvaliacaoListaController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}	
 	
-	@RequestMapping(value = "{usuario}", method = RequestMethod.GET)
-    public ResponseEntity<List<Avaliacao>> buscarPorUsuario(@PathVariable Usuario usuario) {
+	@RequestMapping(value = "{id_usuario}", method = RequestMethod.GET)
+    public ResponseEntity<List<Avaliacao>> buscarPorUsuario(@PathVariable long id) {
 		AvaliacaoListaDAO = new AvaliacaoListaDAO();
-		List<Avaliacao> listaAvaliacoesListas = AvaliacaoListaDAO.buscarPorUsuario(usuario);		
+		List<Avaliacao> listaAvaliacoesListas = AvaliacaoListaDAO.buscarPorUsuario(id);		
 		return new ResponseEntity<List<Avaliacao>>(listaAvaliacoesListas, HttpStatus.OK);
 		
 	}
@@ -65,19 +65,19 @@ public class AvaliacaoListaController {
 		}
 	}
 	
-	@RequestMapping(value = "{lista}", method = RequestMethod.GET)
-	public ResponseEntity<Float> calcularMediaLista(@PathVariable Lista lista) {
+	@RequestMapping(value = "{id_lista}", method = RequestMethod.GET)
+	public ResponseEntity<Float> calcularMediaLista(@PathVariable long id) {
 		AvaliacaoListaDAO = new AvaliacaoListaDAO();
-		float avaliacaoLista = AvaliacaoListaDAO.calcularMediaLista(lista);
+		float avaliacaoLista = AvaliacaoListaDAO.calcularMediaLista(id);
 		return new ResponseEntity<Float>(avaliacaoLista, HttpStatus.OK);
 	}
 
 
 	
-	@RequestMapping(value = "{lista}", method = RequestMethod.GET)
-	public ResponseEntity<AvaliacaoLista> buscarPorLista(@PathVariable Lista lista) {
+	@RequestMapping(value = "{id_lista}", method = RequestMethod.GET)
+	public ResponseEntity<AvaliacaoLista> buscarPorLista(@PathVariable long id) {
 		AvaliacaoListaDAO = new AvaliacaoListaDAO();
-		AvaliacaoLista avaliacoesLista = (AvaliacaoLista) AvaliacaoListaDAO.buscarPorLista(lista);
+		AvaliacaoLista avaliacoesLista = (AvaliacaoLista) AvaliacaoListaDAO.buscarPorLista(id);
 		if(avaliacoesLista != null) {
 			return new ResponseEntity<AvaliacaoLista>(avaliacoesLista, HttpStatus.FOUND);
 		}else{

@@ -31,10 +31,10 @@ public class AlbumListaController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "{lista}", method = RequestMethod.GET)
-	public ResponseEntity<List<AlbumLista>> buscarPorLista(@PathVariable Lista lista) {
+	@RequestMapping(value = "{id_lista}", method = RequestMethod.GET)
+	public ResponseEntity<List<AlbumLista>> buscarPorLista(@PathVariable long id) {
 		AlbumListaDAO albumListaDAO = new AlbumListaDAO();
-		List<AlbumLista> listaA = albumListaDAO.buscarPorLista(lista);
+		List<AlbumLista> listaA = albumListaDAO.buscarPorLista(id);
 		if(listaA != null) {
 			return new ResponseEntity<List<AlbumLista>>(listaA, HttpStatus.FOUND);
 		}else{

@@ -56,11 +56,10 @@ package com.melodiam.controller;
  		}
  	}
 
- 	@RequestMapping(value = "{usuario}", method = RequestMethod.GET)
- 	public ResponseEntity<List<Lista>> buscarPorAutor(@PathVariable Usuario usuario) {
+ 	@RequestMapping(value = "{id_usuario}", method = RequestMethod.GET)
+ 	public ResponseEntity<List<Lista>> buscarPorAutor(@PathVariable long id) {
  		lDAO = new ListaDAO();
- 		System.out.println(usuario.toString());
- 		List<Lista> listaListas = lDAO.buscarPorAutor(usuario);
+ 		List<Lista> listaListas = lDAO.buscarPorAutor(id);
  		if(listaListas != null) {
  			return new ResponseEntity<List<Lista>>(listaListas, HttpStatus.FOUND);
  		}else{

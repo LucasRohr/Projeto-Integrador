@@ -18,15 +18,16 @@ public class AvaliacaoAlbumDAO implements AvaliacaoDAO {
 
 	public AvaliacaoAlbumDAO() {
 		super();
-		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "");
+		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "root");
 	
 	}
 	
 	public AvaliacaoAlbum cadastrarAvaliacao(Avaliacao avaliacao) {
 		this.conexao.abrirConexao();
-		String sqlInsert = "INSERT INTO avaliacao_album VALUES(null, ?, ?, ?);";
+		String sqlInsert = "INSERT INTO Avaliacao_Album VALUES(null, ?, ?, ?);";
 			try {
-			PreparedStatement statement = this.conexao.getConexao().prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement statement = this.conexao.getConexao().prepareStatement(sqlInsert, 
+					Statement.RETURN_GENERATED_KEYS);
 			statement.setFloat(1, avaliacao.getAvaliacao());
 			statement.setLong(2, avaliacao.getAutor().getIdUsuario());
 			statement.setLong(3, ((AvaliacaoAlbum) avaliacao).getAlbum().getIdAlbum());
@@ -45,8 +46,8 @@ public class AvaliacaoAlbumDAO implements AvaliacaoDAO {
 
 	public void editarAvaliacao(Avaliacao avaliacao){
 		this.conexao.abrirConexao();
-		String sqlUpdate = "UPDATE avaliacao_album SET avalicao_album=?, id_usuario=?, id_album=? "
-				+ "WHERE id_avaliacao_album=?;";
+		String sqlUpdate = "UPDATE Avaliacao_Album SET avaliacao_album=?, id_usuario=?, id_album=? " + 
+				"WHERE id_avaliacao_album=?;";
 
 		try {
 			PreparedStatement statement = this.conexao.getConexao().prepareStatement(sqlUpdate);
@@ -69,7 +70,7 @@ public class AvaliacaoAlbumDAO implements AvaliacaoDAO {
 		// ABRIR A CONEXÃO COM O BANCO
 		this.conexao.abrirConexao();
 		// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
-		String sqlDelete = "DELETE FROM avaliacao_media WHERE id_avaliacao_lista=?;";
+		String sqlDelete = "DELETE FROM Avaliacao_Album WHERE id_avaliacao_album=?;";
 		// DECLARA E INICIALIZA UM STATEMENT, OBJETO USADO PARA PREPARAR O
 		// SQL À SER EXECUTADO
 		try {
@@ -88,8 +89,11 @@ public class AvaliacaoAlbumDAO implements AvaliacaoDAO {
 		// ABRIR A CONEXÃO COM O BANCO
 		this.conexao.abrirConexao();
 		// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
-		String sqlInsert = "INNER JOIN avaliacao_lista ON avaliacao_lista.id_usuario = usuario.id_usuario AND "
-				+ "avaliacao_lista.id_album = album.id_album WHERE id_avaliacao_lista =?;";
+		String sqlInsert = 
+				"SELECT * FROM Avaliacao_Album " + 
+				"INNER JOIN Usuario ON Avaliacao_Album.id_usuario = Usuario.id_usuario " + 
+				"INNER JOIN Album ON Avaliacao_Album.id_album = Album.id_album " + 
+				"WHERE Avaliacao_Album.id_avaliacao_album = ?;";
 		PreparedStatement statement;
 		Avaliacao avaliacao = null;
 		Usuario autor = null;
@@ -99,7 +103,8 @@ public class AvaliacaoAlbumDAO implements AvaliacaoDAO {
 			statement.setLong(1, id);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
-				autor = new Usuario(rs.getLong("id_usuario"), rs.getString("login_usuario"), rs.getString("senha_usuario"));
+				autor = new Usuario(
+						rs.getLong("id_usuario"), rs.getString("login_usuario"), rs.getString("senha_usuario"));
 				album = new Album(rs.getString("id_spotify"), rs.getLong("id_album"));
 				
 				avaliacao = new AvaliacaoAlbum();
@@ -120,26 +125,33 @@ public class AvaliacaoAlbumDAO implements AvaliacaoDAO {
 		return avaliacao;
 	}
 
-	public List<Avaliacao> buscarPorUsuario(Usuario usuario) {
+	public List<Avaliacao> buscarPorUsuario(long id) {
 		// ABRIR A CONEXÃO COM O BANCO
 		this.conexao.abrirConexao();
 		// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
-		String sqlInsert = "INNER JOIN avaliacao_album ON avaliacao_album.id_album = album.id_album WHERE id_usuario=?;";
+		String sqlInsert = 
+				"SELECT * FROM Avaliacao_Album " + 
+				"INNER JOIN Album ON Avaliacao_Album.id_album = Album.id_album " + 
+				"INNER JOIN Usuario ON Avaliacao_Album.id_usuario = Usuario.id_usuario " + 
+				"WHERE Avaliacao_Album.id_usuario = ?;";
 		PreparedStatement statement;
 		Avaliacao avaliacao = null;
 		Album album = null;
+		Usuario autor = null;
 		List<Avaliacao> listaAvaliacoes = new ArrayList<Avaliacao>();;
 		try {
 			statement = this.conexao.getConexao().prepareStatement(sqlInsert);
-			statement.setLong(1, usuario.getIdUsuario());
+			statement.setLong(1, id);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				// Converter um objeto ResultSet em um objeto Lista
 				
 				album = new Album(rs.getString("id_spotify"), rs.getLong("id_album"));
+				autor = new Usuario(
+						rs.getLong("id_usuario"), rs.getString("login_usuario"), rs.getString("senha_usuario"));
 				avaliacao = new AvaliacaoAlbum();
 				avaliacao.setAvaliacao(rs.getFloat("avaliacao_album"));
-				avaliacao.setAutor(usuario);
+				avaliacao.setAutor(autor);
 				((AvaliacaoAlbum) avaliacao).setIdAvaliacaoAlbum(rs.getLong("id_avaliacao_album"));
 				((AvaliacaoAlbum) avaliacao).setAlbum(album);
 				listaAvaliacoes.add(avaliacao);
@@ -153,16 +165,16 @@ public class AvaliacaoAlbumDAO implements AvaliacaoDAO {
 		return listaAvaliacoes;
 	}
 
-	public float calcularMedia(Album album) {
+	public float calcularMedia(long id) {
 		// ABRIR A CONEXÃO COM O BANCO
 		this.conexao.abrirConexao();
 		// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
-		String sqlInsert = "SELECT AVG(avaliacao_album) FROM avaliacao_album WHERE album.album_id = ?;";
+		String sqlInsert = "SELECT AVG(avaliacao_album) FROM Avaliacao_Album WHERE Avaliacao_Album.id_album = ?;";
 		PreparedStatement statement;
 		float media = 0;
 		try {
 			statement = this.conexao.getConexao().prepareStatement(sqlInsert);
-			statement.setFloat(1, album.getIdAlbum());
+			statement.setFloat(1, id);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				media = rs.getFloat("avaliacao_lista"); //VER O NOME DO PARAMETRO
@@ -176,26 +188,31 @@ public class AvaliacaoAlbumDAO implements AvaliacaoDAO {
 		return media;
 	}
 
-	public List<Avaliacao> buscarPorAlbum(Album album){
+	public List<Avaliacao> buscarPorAlbum(long id){
 		// ABRIR A CONEXÃO COM O BANCO
 		this.conexao.abrirConexao();
 		// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
-		String sqlInsert = "INNER JOIN avaliacao_album ON avaliacao_album.id_usuario = usuario.id_usuario WHERE id_album=?;";
+		String sqlInsert = 
+				"SELECT * FROM Avaliacao_Album " + 
+				"INNER JOIN Usuario ON Avaliacao_Album.id_usuario = Usuario.id_usuario " + 
+				"INNER JOIN Album ON Avaliacao_Album.id_album = Album.id_album " + 
+				"WHERE Avaliacao_Album.id_album = ?;";
 		PreparedStatement statement;
 		AvaliacaoAlbum avaliacaoAlbum = null;
 		Usuario autor = null;
+		Album album = null;
 		List<Avaliacao> listaAvaliacaoAlbums = new ArrayList<Avaliacao>();
 		try {
 			statement = this.conexao.getConexao().prepareStatement(sqlInsert);
-			statement.setLong(1, album.getIdAlbum());				
+			statement.setLong(1, id);				
 			ResultSet rs = statement.executeQuery();
 			
 			while(rs.next()) {
 				// Converter um objeto ResultSet em um objeto avaliacaoAlbum
-				autor = new Usuario();
-				autor.setIdUsuario(rs.getLong("id_usuario"));
-				autor.setLogin(rs.getString("login_usuario"));
-				autor.setSenha(rs.getString("senha_usuario"));
+				autor = new Usuario(
+						rs.getLong("id_usuario"), rs.getString("login_usuario"), (rs.getString("senha_usuario")));
+				album = new Album(
+						rs.getString("id_spotify"), rs.getLong("id_album"));
 				avaliacaoAlbum= new AvaliacaoAlbum();
 				avaliacaoAlbum.setIdAvaliacaoAlbum(rs.getLong("id_avaliacao_album"));
 				avaliacaoAlbum.setAvaliacao(rs.getFloat("avaliacao_album"));

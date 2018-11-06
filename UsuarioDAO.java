@@ -15,7 +15,7 @@ public class UsuarioDAO {
 
 	public UsuarioDAO() {
 		super();
-		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "");
+		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "root");
 	}
 
 	// INSERT INTO usuario VALUES(null, 'Rodrigo', 'remor', '123');
@@ -23,11 +23,12 @@ public class UsuarioDAO {
 		// ABRIR A CONEX�O COM O BANCO
 		this.conexao.abrirConexao();
 		// SQL COM A OPERA��O QUE DESEJA-SE REALIZAR
-		String sqlInsert = "INSERT INTO usuario VALUES(null, ?, ?);";
+		String sqlInsert = "INSERT INTO Usuario VALUES(null, ?, ?);";
 		try {
 			// DECLARA E INICIALIZA UM STATEMENT, OBJETO USADO PARA PREPARAR O
 			// SQL � SER EXECUTADO
-			PreparedStatement statement = this.conexao.getConexao().prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement statement = this.conexao.getConexao().prepareStatement(sqlInsert, 
+					Statement.RETURN_GENERATED_KEYS);
 			// SUBSTITUIR AS INTERROGA��ES PELOS VALORES QUE EST�O NO OBJETO
 			// USU�RIO
 			
@@ -55,7 +56,7 @@ public class UsuarioDAO {
 		// ABRIR A CONEXÃO COM O BANCO
 		this.conexao.abrirConexao();
 		// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
-		String sqlUpdate = "UPDATE usuario SET login_usuario=?, senha_usuario=? WHERE id_usuario=?;";
+		String sqlUpdate = "UPDATE Usuario SET login_usuario=?, senha_usuario=? WHERE id_usuario=?;";
 
 		try {
 			// DECLARA E INICIALIZA UM STATEMENT, OBJETO USADO PARA PREPARAR O
@@ -82,7 +83,7 @@ public class UsuarioDAO {
 			// ABRIR A CONEXÃO COM O BANCO
 			this.conexao.abrirConexao();
 			// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
-			String sqlDelete = "DELETE FROM usuario WHERE id_usuario=?;";
+			String sqlDelete = "DELETE FROM Usuario WHERE id_usuario=?;";
 			// DECLARA E INICIALIZA UM STATEMENT, OBJETO USADO PARA PREPARAR O
 			// SQL À SER EXECUTADO
 			try {
@@ -102,7 +103,7 @@ public class UsuarioDAO {
 			// ABRIR A CONEXÃO COM O BANCO
 			this.conexao.abrirConexao();
 			// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
-			String sqlSelect = "SELECT * FROM usuario;";
+			String sqlSelect = "SELECT * FROM Usuario;";
 			PreparedStatement statement;
 			Usuario usuario = null;
 			List<Usuario> listaUsuarios = new ArrayList<Usuario>();
@@ -131,7 +132,7 @@ public class UsuarioDAO {
 			// ABRIR A CONEXÃO COM O BANCO
 			this.conexao.abrirConexao();
 			// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
-			String sqlInsert = "SELECT * FROM usuario WHERE id_usuario=?;";
+			String sqlInsert = "SELECT * FROM Usuario WHERE id_usuario=?;";
 			PreparedStatement statement;
 			Usuario usuario = null;
 			try {
@@ -158,7 +159,7 @@ public class UsuarioDAO {
 			// ABRIR A CONEXÃO COM O BANCO
 			this.conexao.abrirConexao();
 			// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
-			String sqlInsert = "SELECT * FROM usuario WHERE login_usuario=?;";
+			String sqlInsert = "SELECT * FROM Usuario WHERE login_usuario=?;";
 			PreparedStatement statement;
 			Usuario usuario = null;
 			try {

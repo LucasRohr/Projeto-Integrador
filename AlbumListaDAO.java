@@ -10,6 +10,7 @@ import java.util.List;
 import com.melodiam.model.Album;
 import com.melodiam.model.AlbumLista;
 import com.melodiam.model.Lista;
+import com.melodiam.model.Usuario;
 
 public class AlbumListaDAO {
 
@@ -17,12 +18,12 @@ public class AlbumListaDAO {
 
 	public AlbumListaDAO() {
 		super();
-		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "");
+		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "root");
 	}
 
 	public AlbumLista inserirEmLista(AlbumLista albumLista) {
 		this.conexao.abrirConexao();
-		String sqlInsert = "INSERT INTO album_lista VALUES(null, ?, ?);";
+		String sqlInsert = "INSERT INTO Album_Lista VALUES(null, ?, ?);";
 		try {
 			PreparedStatement statement = this.conexao.getConexao().prepareStatement(sqlInsert,
 					Statement.RETURN_GENERATED_KEYS);
@@ -46,7 +47,7 @@ public class AlbumListaDAO {
 		// ABRIR A CONEXÃO COM O BANCO
 		this.conexao.abrirConexao();
 		// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
-		String sqlDelete = "DELETE FROM album_lista WHERE id_album_lista=?;";
+		String sqlDelete = "DELETE FROM Album_Lista WHERE id_album_lista=?;";
 		// DECLARA E INICIALIZA UM STATEMENT, OBJETO USADO PARA PREPARAR O
 		// SQL À SER EXECUTADO
 		try {
@@ -61,24 +62,31 @@ public class AlbumListaDAO {
 		}
 	}
 
-	public List<AlbumLista> buscarPorLista(Lista lista) {
+	public List<AlbumLista> buscarPorLista(long id) {
 		// ABRIR A CONEXÃO COM O BANCO
 		this.conexao.abrirConexao();
 		// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
-		String sqlInsert = "SELECT * FROM album_lista WHERE id_lista=?;";
+		String sqlInsert = "SELECT * FROM Album_Lista " + 
+				"INNER JOIN Lista ON Album_Lista.id_lista = Lista.id_lista " + 
+				"INNER JOIN Usuario ON Lista.id_usuario = Usuario.id_usuario " + 
+				"WHERE Album_Lista.id_lista=?;";
 		PreparedStatement statement;
 		AlbumLista albumLista = null;
 		Album album = null;
+		Lista lista = null;
+		Usuario autor = null;
 		List<AlbumLista> listaAlbumLista = new ArrayList<AlbumLista>();
 		try {
 			statement = this.conexao.getConexao().prepareStatement(sqlInsert);
-			statement.setLong(1, lista.getIdLista());
+			statement.setLong(1, id);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				// Converter um objeto ResultSet em objetos Album e AlbumLista
-				album = new Album();
-				album.setIdSpotify(rs.getString("id_spotify"));
-				album.setIdAlbum(rs.getLong("id_album"));
+				autor = new Usuario(
+						rs.getLong("id_usuario"), rs.getString("login_usuario"), rs.getString("senha_usuario"));
+				lista = new Lista(
+						rs.getLong("id_lista"), autor, rs.getString("nome_lista"), rs.getString("descricao_lista"));
+				album = new Album(rs.getString("id_spotify"), rs.getLong("id_album"));
 				albumLista = new AlbumLista(rs.getLong("id_album_lista"), album, lista);
 				listaAlbumLista.add(albumLista);
 			}

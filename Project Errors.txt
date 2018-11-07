@@ -1,0 +1,21 @@
+========================================================================
+* In case of having problems with connector version *
+
+
+<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+
+
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.12</version>
+</dependency>
+
+
+
+=========================================================================
+
+* In case of hour problems at the project *
+
+Class.forName("com.mysql.cj.jdbc.Driver");
+String endereco = "jdbc:mysql://"+this.ip+"/"+this.nomeBd+"?useTimezone=true&serverTimezone=UTC";

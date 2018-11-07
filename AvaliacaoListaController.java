@@ -10,11 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.melodiam.model.Album;
 import com.melodiam.model.Avaliacao;
 import com.melodiam.model.AvaliacaoLista;
-import com.melodiam.model.Lista;
-import com.melodiam.model.Usuario;
 import com.melodiam.persistencia.AvaliacaoListaDAO;
 
 @Controller    

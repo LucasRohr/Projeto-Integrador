@@ -23,21 +23,21 @@ public class UsuarioController {
 	public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {
 		uDAO = new UsuarioDAO();
 		System.out.println("NOME:"+usuario.getLogin());
-		usuario = uDAO.cadastrar(usuario);
+		usuario = uDAO.cadastrarUsuario(usuario);
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.PUT)
 	public ResponseEntity<Void> editar(@RequestBody Usuario usuario) {
 		uDAO = new UsuarioDAO();
-		uDAO.editar(usuario);
+		uDAO.editarUsuario(usuario);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> excluir(@PathVariable long id) {
 		uDAO = new UsuarioDAO();
-		uDAO.excluir(id);
+		uDAO.excluirUsuario(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}	
 	

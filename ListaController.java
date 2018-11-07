@@ -11,7 +11,6 @@ package com.melodiam.controller;
  import org.springframework.web.bind.annotation.RequestMethod;
 
  import com.melodiam.model.Lista;
- import com.melodiam.model.Usuario;
  import com.melodiam.persistencia.ListaDAO;
 
  @Controller

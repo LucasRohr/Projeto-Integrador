@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.melodiam.model.Album;
 import com.melodiam.model.Comentario;
-import com.melodiam.model.Usuario;
 import com.melodiam.persistencia.ComentarioDAO;
 
 @Controller    
@@ -66,7 +64,7 @@ public class ComentarioController {
 	@RequestMapping(value = "{id_usuario}", method = RequestMethod.GET)
 	public ResponseEntity<Comentario> buscarPorAutor(@PathVariable long id) {
 		comentarioDAO = new ComentarioDAO();
-		Comentario comentario = comentarioDAO.buscarPorAutor(id);
+		Comentario comentario = (Comentario) comentarioDAO.buscarPorAutor(id);
 		if(comentario != null) {
 			return new ResponseEntity<Comentario>(comentario, HttpStatus.FOUND);
 		}else{
@@ -78,7 +76,7 @@ public class ComentarioController {
 	@RequestMapping(value = "{id_album}", method = RequestMethod.GET)
 	public ResponseEntity<Comentario> buscarPorAlbum(@PathVariable long id) {
 		comentarioDAO = new ComentarioDAO();
-		Comentario comentario = comentarioDAO.buscarPorAlbum(id);
+		Comentario comentario = (Comentario) comentarioDAO.buscarPorAlbum(id);
 		if(comentario != null) {
 			return new ResponseEntity<Comentario>(comentario, HttpStatus.FOUND);
 		}else{

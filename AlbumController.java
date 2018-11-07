@@ -28,13 +28,6 @@ public class AlbumController {
 	}
 	
 	
-//	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-//	public ResponseEntity<Void> excluir(@PathVariable long id) {
-//		albumDAO = new AlbumDAO();
-//		albumDAO.excluirAlbum(id);
-//		return new ResponseEntity<Void>(HttpStatus.OK);
-//	}	
-	
 	@RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<Album>> buscarTodosAlbuns() {
 		albumDAO = new AlbumDAO();

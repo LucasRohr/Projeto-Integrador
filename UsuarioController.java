@@ -1,7 +1,6 @@
 package com.melodiam.controller;
 
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,7 @@ public class UsuarioController {
 	private UsuarioDAO uDAO;
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario) {
 		uDAO = new UsuarioDAO();
 		System.out.println("NOME:"+usuario.getLogin());
 		usuario = uDAO.cadastrarUsuario(usuario);
@@ -28,14 +27,14 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.PUT)
-	public ResponseEntity<Void> editar(@RequestBody Usuario usuario) {
+	public ResponseEntity<Void> editarUsuario(@RequestBody Usuario usuario) {
 		uDAO = new UsuarioDAO();
 		uDAO.editarUsuario(usuario);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> excluir(@PathVariable long id) {
+	public ResponseEntity<Void> excluirUsuario(@PathVariable long id) {
 		uDAO = new UsuarioDAO();
 		uDAO.excluirUsuario(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
@@ -72,7 +71,4 @@ public class UsuarioController {
 
 		}
 	}
-	
-	
-
 }

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.melodiam.model.Album;
 import com.melodiam.model.Comentario;
+import com.melodiam.model.Usuario;
 import com.melodiam.persistencia.ComentarioDAO;
 
 @Controller    
@@ -62,25 +64,25 @@ public class ComentarioController {
 	}
 
 	@RequestMapping(value = "{id_usuario}", method = RequestMethod.GET)
-	public ResponseEntity<Comentario> buscarPorAutor(@PathVariable long id) {
+	public ResponseEntity<List<Comentario>> buscarPorAutor(@PathVariable long id) {
 		comentarioDAO = new ComentarioDAO();
-		Comentario comentario = (Comentario) comentarioDAO.buscarPorAutor(id);
-		if(comentario != null) {
-			return new ResponseEntity<Comentario>(comentario, HttpStatus.FOUND);
+		List<Comentario> listaComentarios = comentarioDAO.buscarPorAutor(id);
+		if(listaComentarios != null) {
+			return new ResponseEntity<List<Comentario>>(listaComentarios, HttpStatus.FOUND);
 		}else{
-			return new ResponseEntity<Comentario>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<List<Comentario>>(HttpStatus.NOT_FOUND);
 
 		}
 	}
 	
 	@RequestMapping(value = "{id_album}", method = RequestMethod.GET)
-	public ResponseEntity<Comentario> buscarPorAlbum(@PathVariable long id) {
+	public ResponseEntity<List<Comentario>> buscarPorAlbum(@PathVariable long id) {
 		comentarioDAO = new ComentarioDAO();
-		Comentario comentario = (Comentario) comentarioDAO.buscarPorAlbum(id);
-		if(comentario != null) {
-			return new ResponseEntity<Comentario>(comentario, HttpStatus.FOUND);
+		List<Comentario> listaComentarios = comentarioDAO.buscarPorAlbum(id);
+		if(listaComentarios != null) {
+			return new ResponseEntity<List<Comentario>>(listaComentarios, HttpStatus.FOUND);
 		}else{
-			return new ResponseEntity<Comentario>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<List<Comentario>>(HttpStatus.NOT_FOUND);
 
 		}
 	}

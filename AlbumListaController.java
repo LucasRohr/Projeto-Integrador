@@ -4,15 +4,18 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.melodiam.model.AlbumLista;
+import com.melodiam.model.Lista;
 import com.melodiam.persistencia.AlbumListaDAO;;
 
-
+@Controller
+@RequestMapping(path = "/album-lista/")
 public class AlbumListaController {
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)

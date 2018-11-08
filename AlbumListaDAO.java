@@ -18,7 +18,7 @@ public class AlbumListaDAO {
 
 	public AlbumListaDAO() {
 		super();
-		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "root");
+		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "ifsul2017");
 	}
 
 	public AlbumLista inserirEmLista(AlbumLista albumLista) {
@@ -69,6 +69,7 @@ public class AlbumListaDAO {
 		String sqlInsert = "SELECT * FROM Album_Lista " + 
 				"INNER JOIN Lista ON Album_Lista.id_lista = Lista.id_lista " + 
 				"INNER JOIN Usuario ON Lista.id_usuario = Usuario.id_usuario " + 
+				"INNER JOIN Album ON Album.id_album = Album_Lista.id_album " +
 				"WHERE Album_Lista.id_lista=?;";
 		PreparedStatement statement;
 		AlbumLista albumLista = null;

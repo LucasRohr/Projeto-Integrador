@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.melodiam.model.Lista;
 import com.melodiam.model.Usuario;
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
 
 public class ListaDAO {
 
@@ -17,7 +17,7 @@ public class ListaDAO {
 
 	public ListaDAO() {
 		super();
-		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "root");
+		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "ifsul2017");
 	}
 
 	// INSERT INTO lista VALUES(null, 'Rodrigo', 'remor', '123');
@@ -55,7 +55,7 @@ public class ListaDAO {
 
 	// UPDATE lista SET nome_lista='Algo', descricao_lista='ghjgg', id_usuario='1'
 	// WHERE id_lista=1;
-	public void editar(Lista lista) {
+	public void editarLista(Lista lista) {
 		// ABRIR A CONEXÃO COM O BANCO
 		this.conexao.abrirConexao();
 		// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR
@@ -119,7 +119,7 @@ public class ListaDAO {
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
-				System.out.println("o banco possui dados");
+				//System.out.println("o banco possui dados");
 				// Converter um objeto ResultSet em um objeto Lista
 				autor = new Usuario(rs.getLong("id_usuario"), rs.getString("login_usuario"),
 						rs.getString("senha_usuario"));

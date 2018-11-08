@@ -15,7 +15,7 @@ public class AlbumDAO {
 
 	public AlbumDAO() {
 		super();
-		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "root");
+		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "ifsul2017");
 	}
 
 	// INSERT INTO album VALUES(null, 'Rodrigo', 'remor', '123');

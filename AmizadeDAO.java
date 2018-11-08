@@ -14,7 +14,7 @@ public class AmizadeDAO {
 
 	public AmizadeDAO() {
 		super();
-		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "root");
+		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "ifsul2017");
 	}
 
 	public Amizade solicitarAmizade(Amizade amizade) {

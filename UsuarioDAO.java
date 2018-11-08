@@ -15,7 +15,7 @@ public class UsuarioDAO {
 
 	public UsuarioDAO() {
 		super();
-		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "root");
+		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "ifsul2017");
 	}
 
 	// INSERT INTO usuario VALUES(null, 'Rodrigo', 'remor', '123');
@@ -27,7 +27,7 @@ public class UsuarioDAO {
 		try {
 			// DECLARA E INICIALIZA UM STATEMENT, OBJETO USADO PARA PREPARAR O
 			// SQL � SER EXECUTADO
-			PreparedStatement statement = this.conexao.getConexao().prepareStatement(sqlInsert, 
+			PreparedStatement statement = this.conexao.getConexao().prepareStatement(sqlInsert,
 					Statement.RETURN_GENERATED_KEYS);
 			// SUBSTITUIR AS INTERROGA��ES PELOS VALORES QUE EST�O NO OBJETO
 			// USU�RIO

@@ -18,7 +18,7 @@ public class AvaliacaoAlbumDAO implements AvaliacaoDAO {
 
 	public AvaliacaoAlbumDAO() {
 		super();
-		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "root");
+		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "ifsul2017");
 	
 	}
 	
@@ -177,7 +177,7 @@ public class AvaliacaoAlbumDAO implements AvaliacaoDAO {
 			statement.setFloat(1, id);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
-				media = rs.getFloat("avaliacao_lista"); //VER O NOME DO PARAMETRO
+				media = rs.getFloat("AVG(avaliacao_album)"); //VER O NOME DO PARAMETRO
 
 			}
 		} catch (SQLException e) {

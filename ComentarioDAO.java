@@ -17,7 +17,7 @@ public class ComentarioDAO {
 
 	public ComentarioDAO() {
 		super();
-		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "root");
+		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "ifsul2017");
 	}
 
 	public Comentario publicar(Comentario comentario) {
@@ -116,14 +116,14 @@ public class ComentarioDAO {
 			while (rs.next()) {
 				// Converter um objeto ResultSet em um objeto Comentario
 				comentario = new Comentario();
-				autor = new Usuario(rs.getLong("id_usuario"), rs.getString("usuario_login"),
-						rs.getString("usuario_senha"));
+				autor = new Usuario(rs.getLong("id_usuario"), rs.getString("login_usuario"),
+						rs.getString("senha_usuario"));
 				album = new Album(rs.getString("id_spotify"), rs.getLong("id_album"));
 
 				comentario.setIdComentario(rs.getLong("id_comentario"));
 				comentario.setAutor(autor);
 				comentario.setTexto(rs.getString("texto"));
-				comentario.setData(rs.getString("data"));
+				comentario.setData(rs.getString("data_hora"));
 				comentario.setAlbum(album);
 				listaComentarios.add(comentario);
 			}
@@ -156,14 +156,14 @@ public class ComentarioDAO {
 			if (rs.next()) {
 				// Converter um objeto ResultSet em um objeto Comentario
 				comentario = new Comentario();
-				autor = new Usuario(rs.getLong("id_usuario"), rs.getString("usuario_login"),
-						rs.getString("usuario_senha"));
+				autor = new Usuario(rs.getLong("id_usuario"), rs.getString("login_usuario"),
+						rs.getString("senha_usuario"));
 				album = new Album(rs.getString("id_spotify"), rs.getLong("id_album"));
 
 				comentario.setIdComentario(rs.getLong("id_comentario"));
 				comentario.setAutor(autor);
 				comentario.setTexto(rs.getString("texto"));
-				comentario.setData(rs.getString("data"));
+				comentario.setData(rs.getString("data_hora"));
 				comentario.setAlbum(album);
 			}
 		} catch (SQLException e) {
@@ -194,13 +194,14 @@ public class ComentarioDAO {
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				comentario = new Comentario();
-				Usuario autor = new Usuario();
+				Usuario autor = new Usuario(
+						rs.getLong("id_usuario"), rs.getString("login_usuario"), rs.getString("senha_usuario"));
 				album = new Album(rs.getString("id_spotify"), rs.getLong("id_album"));
 
 				comentario.setIdComentario(rs.getLong("id_comentario"));
 				comentario.setAutor(autor);
 				comentario.setTexto(rs.getString("texto"));
-				comentario.setData(rs.getString("data"));
+				comentario.setData(rs.getString("data_hora"));
 				comentario.setAlbum(album);
 				listaComentarios.add(comentario);
 			}
@@ -233,13 +234,15 @@ public class ComentarioDAO {
 				// Converter um objeto ResultSet em um objeto Comentario
 				Album album = new Album();
 				comentario = new Comentario();
-				autor = new Usuario(rs.getLong("id_usuario"), rs.getString("usuario_login"),
-						rs.getString("usuario_senha"));
+				autor = new Usuario(rs.getLong("id_usuario"), rs.getString("login_usuario"),
+						rs.getString("senha_usuario"));
 
 				comentario.setIdComentario(rs.getLong("id_comentario"));
 				comentario.setAutor(autor);
 				comentario.setTexto(rs.getString("texto"));
-				comentario.setData(rs.getString("data"));
+				comentario.setData(rs.getString("data_hora"));
+				album.setIdAlbum(rs.getLong("id_album"));
+				album.setIdSpotify(rs.getString("id_spotify"));
 				comentario.setAlbum(album);
 				listaComentarios.add(comentario);
 			}

@@ -19,7 +19,7 @@ public class AvaliacaoListaDAO implements AvaliacaoDAO {
 
 	public AvaliacaoListaDAO() {
 		super();
-		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "root");
+		this.conexao = new ConexaoMysql("localhost", "melodiam", "root", "");
 	}
 
 	// INSERT INTO avaliacaoLista VALUES(null, 'Rodrigo', 'remor', '123');
@@ -123,6 +123,9 @@ public class AvaliacaoListaDAO implements AvaliacaoDAO {
 				"WHERE al.id_usuario=?;";
 		PreparedStatement statement;
 		AvaliacaoLista avaliacaoLista = null;
+		Lista lista = null;
+		Usuario avaliador = null;
+		Usuario autor = null;
 		List<Avaliacao> listaAvaliacaoListas = new ArrayList<Avaliacao>();
 		try {
 			statement = (PreparedStatement) this.conexao.getConexao().prepareStatement(sqlInsert);
@@ -132,10 +135,14 @@ public class AvaliacaoListaDAO implements AvaliacaoDAO {
 			while (rs.next()) {
 				// Converter um objeto ResultSet em um objeto avaliacaoLista
 				avaliacaoLista = new AvaliacaoLista();
+				autor = new Usuario(rs.getLong("id_autor"), rs.getString("login_autor"), ""); //enviando sem senha
+				lista = new Lista(
+						rs.getLong("id_lista"), autor, rs.getString("nome_lista"), rs.getString("descricao_lista"));
+				avaliador = new Usuario(rs.getLong("id_avaliador"), rs.getString("login_avaliador"), ""); //enviando sem senha
 				avaliacaoLista.setIdAvaliacaoLista(rs.getLong("id_avaliacao_lista"));
 				avaliacaoLista.setAvaliacao(rs.getFloat("avaliacao_lista"));
-				avaliacaoLista.getAutor().setIdUsuario(rs.getLong("id_usuario"));
-				avaliacaoLista.getLista().setIdLista(rs.getLong("id_lista"));
+				avaliacaoLista.setAutor(avaliador);
+				avaliacaoLista.setLista(lista);
 				listaAvaliacaoListas.add(avaliacaoLista);
 			}
 		} catch (SQLException e) {
@@ -171,11 +178,11 @@ public class AvaliacaoListaDAO implements AvaliacaoDAO {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {//COMO PEGAR O AUTOR DA LISTA??
 				// Converter um objeto ResultSet em um objeto avaliacaoLista
+				avaliacaoLista = new AvaliacaoLista();
 				autor = new Usuario(rs.getLong("id_autor"), rs.getString("login_autor"), ""); //enviando sem senha
 				lista = new Lista(
 						rs.getLong("id_lista"), autor, rs.getString("nome_lista"), rs.getString("descricao_lista"));
-				avaliador = new Usuario(rs.getLong("id_avaliador"), rs.getString("id_avaliador"), ""); //enviando sem senha
-				avaliacaoLista = new AvaliacaoLista();
+				avaliador = new Usuario(rs.getLong("id_avaliador"), rs.getString("login_avaliador"), ""); //enviando sem senha
 				avaliacaoLista.setIdAvaliacaoLista(rs.getLong("id_avaliacao_lista"));
 				avaliacaoLista.setAvaliacao(rs.getFloat("avaliacao_lista"));
 				avaliacaoLista.setAutor(avaliador);
@@ -189,7 +196,7 @@ public class AvaliacaoListaDAO implements AvaliacaoDAO {
 		return avaliacaoLista;
 	}
 
-	public float calcularMediaLista(long id) {
+	public float calcularMedia(long id) {
 		// ABRIR A CONEXÃO COM O BANCO
 		this.conexao.abrirConexao();
 		// SQL COM A OPERAÇÃO QUE DESEJA-SE REALIZAR

@@ -20,14 +20,14 @@ public class ConexaoMysql {
 	}
 	
 	public Connection getConexao() {
-		return conexao;
+		return this.conexao;
 	}
 	
 	
 	public void abrirConexao() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			String endereco = "jdbc:mysql://"+this.ip+"/"+this.nomeBd;
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String endereco = "jdbc:mysql://"+this.ip+"/"+this.nomeBd+"?useTimezone=true&serverTimezone=UTC";
 			this.conexao = DriverManager.getConnection(endereco, login, senha);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

@@ -15,7 +15,7 @@ import com.melodiam.model.AvaliacaoAlbum;
 import com.melodiam.persistencia.AvaliacaoAlbumDAO;
 
 @Controller
-@RequestMapping(path = "/avaliacao-Album/")
+@RequestMapping(path = "/avaliacao-album/")
 public class AvaliacaoAlbumController {
 
 	private AvaliacaoAlbumDAO AvaliacaoAlbumDAO;

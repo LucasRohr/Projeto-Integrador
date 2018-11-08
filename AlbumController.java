@@ -55,8 +55,8 @@ public class AlbumController {
 		}
 	}
 
-	@RequestMapping(value = "{id_spotify}", method = RequestMethod.GET)
-	public ResponseEntity<Album> buscarPorIdSpotify(@PathVariable String idSpotify) {
+	@RequestMapping(value = "spotify/{id_spotify}", method = RequestMethod.GET)
+	public ResponseEntity<Album> buscarPorIdSpotify(@PathVariable("id_spotify") String idSpotify) {
 		albumDAO = new AlbumDAO();
 		Album album = albumDAO.buscarPorIdSpotify(idSpotify);
 		if(album != null) {

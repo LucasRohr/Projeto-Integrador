@@ -33,8 +33,8 @@ public class AlbumListaController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "{id_lista}", method = RequestMethod.GET)
-	public ResponseEntity<List<AlbumLista>> buscarPorLista(@PathVariable long id) {
+	@RequestMapping(value = "lista/{id_lista}", method = RequestMethod.GET)
+	public ResponseEntity<List<AlbumLista>> buscarPorLista(@PathVariable("id_lista") long id) {
 		AlbumListaDAO albumListaDAO = new AlbumListaDAO();
 		List<AlbumLista> listaA = albumListaDAO.buscarPorLista(id);
 		if(listaA != null) {

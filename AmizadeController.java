@@ -33,15 +33,15 @@ public class AmizadeController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "{id_amizade}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deletarAmizade(@PathVariable long idAmizade) {
+	@RequestMapping(value = "id/{id_amizade}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> deletarAmizade(@PathVariable("id_amizade") long idAmizade) {
 		aDAO = new AmizadeDAO();
 		aDAO.deletarAmizade(idAmizade);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}	
 	
 	
-	@RequestMapping(value = "{id_usuario}", method = RequestMethod.GET)
+	@RequestMapping(value = "amigos/{id_usuario}", method = RequestMethod.GET)
 	public ResponseEntity<List<Amizade>> buscarAmigosPorUsuario(@PathVariable long idUsuario) {
 		aDAO = new AmizadeDAO();
 	    List<Amizade> listaAmizade = aDAO.buscarAmigosPorUsuario(idUsuario);
@@ -53,7 +53,7 @@ public class AmizadeController {
 		}
 	}
 	
-	@RequestMapping(value = "{id_usuario}", method = RequestMethod.GET)
+	@RequestMapping(value = "pendentes/{id_usuario}", method = RequestMethod.GET)
 	public ResponseEntity<List<Amizade>> buscarPendentesPorUsuario(@PathVariable long idUsuario) {
 		aDAO = new AmizadeDAO();
 	    List<Amizade> listaAmizade = aDAO.buscarPendentesPorUsuario(idUsuario);

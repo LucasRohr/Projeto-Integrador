@@ -63,8 +63,8 @@ public class ComentarioController {
 		}
 	}
 
-	@RequestMapping(value = "{id_usuario}", method = RequestMethod.GET)
-	public ResponseEntity<List<Comentario>> buscarPorAutor(@PathVariable long id) {
+	@RequestMapping(value = "usuario/{id_usuario}", method = RequestMethod.GET)
+	public ResponseEntity<List<Comentario>> buscarPorAutor(@PathVariable("id_usuario") long id) {
 		comentarioDAO = new ComentarioDAO();
 		List<Comentario> listaComentarios = comentarioDAO.buscarPorAutor(id);
 		if(listaComentarios != null) {
@@ -75,8 +75,8 @@ public class ComentarioController {
 		}
 	}
 	
-	@RequestMapping(value = "{id_album}", method = RequestMethod.GET)
-	public ResponseEntity<List<Comentario>> buscarPorAlbum(@PathVariable long id) {
+	@RequestMapping(value = "album/{id_album}", method = RequestMethod.GET)
+	public ResponseEntity<List<Comentario>> buscarPorAlbum(@PathVariable("id_album") long id) {
 		comentarioDAO = new ComentarioDAO();
 		List<Comentario> listaComentarios = comentarioDAO.buscarPorAlbum(id);
 		if(listaComentarios != null) {

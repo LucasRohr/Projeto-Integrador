@@ -60,8 +60,8 @@ public class UsuarioController {
 		}
 	}
 
-	@RequestMapping(value = "{login}", method = RequestMethod.GET)
-	public ResponseEntity<Usuario> buscarPorLoginESenha(@PathVariable String login, @PathVariable String senha) {
+	@RequestMapping(value = "login/{login}", method = RequestMethod.GET)
+	public ResponseEntity<Usuario> buscarPorLogin(@PathVariable String login) {
 		uDAO = new UsuarioDAO();
 		Usuario usuario = uDAO.buscarPorLogin(login);
 		if(usuario!=null) {

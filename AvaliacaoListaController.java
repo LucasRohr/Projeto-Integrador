@@ -68,7 +68,7 @@ public class AvaliacaoListaController {
 	@RequestMapping(value = "media/{id_lista}", method = RequestMethod.GET)
 	public ResponseEntity<Float> calcularMediaLista(@PathVariable long id) {
 		AvaliacaoListaDAO = new AvaliacaoListaDAO();
-		float avaliacaoLista = AvaliacaoListaDAO.calcularMediaLista(id);
+		float avaliacaoLista = AvaliacaoListaDAO.calcularMedia(id);
 		return new ResponseEntity<Float>(avaliacaoLista, HttpStatus.OK);
 	}
 

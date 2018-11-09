@@ -72,4 +72,12 @@ CREATE TABLE Amizade (
     FOREIGN KEY(id_usuario2) REFERENCES Usuario(id_usuario)
 );
 
+CREATE TABLE Amizade_Lista(
+	id_amizade_lista BIGINT NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
+    id_amizade BIGINT NOT NULL,
+    id_lista BIGINT NOT NULL,
+    
+    FOREIGN KEY(id_amizade) REFERENCES Amizade(id_amizade),
+    FOREIGN KEY(id_lista) REFERENCES Lista(id_lista)
+);
 

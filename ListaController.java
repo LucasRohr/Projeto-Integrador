@@ -28,6 +28,13 @@ package com.melodiam.controller;
  		return new ResponseEntity<Lista>(lista, HttpStatus.CREATED);
  	}
  	
+ 	public ResponseEntity<Void> editarLista(@RequestBody Lista lista) {
+ 		lDAO = new ListaDAO();
+ 		// System.out.println("Lista:" + lista.getIdSpotify());
+ 		lDAO.editarLista(lista);
+ 		return new ResponseEntity<Void>(HttpStatus.CREATED);
+ 	}
+ 	
  	
  	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
  	public ResponseEntity<Void> excluir(@PathVariable long id) {
@@ -67,4 +74,13 @@ package com.melodiam.controller;
 
  		}
  	}
+ 	
+ 	@RequestMapping(value = "listas/{id_usuario}", method = RequestMethod.GET)
+ 	public ResponseEntity<Float> retornarNumeroListas(@PathVariable("id_usuario") long idUsuario) {
+ 		float numeroListas;
+ 		ListaDAO lDAO = new ListaDAO();
+ 		numeroListas = lDAO.retornarNumeroListas(idUsuario);
+ 		return new ResponseEntity<Float>(numeroListas, HttpStatus.FOUND); 		
+ 	}
+ 	
  }

@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/timeburnerbold"
+        android:fontFamily="sans-serif"
         android:text="melodiam"
         android:textColor="@color/colorPrimary"
         android:textSize="40sp"

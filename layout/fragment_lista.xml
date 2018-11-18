@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activities.ListaFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_lista"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/ic_library_music_black_48dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_nome_lista_lista"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="sans-serif"
+            android:text="Lista"
+            android:textColor="@color/colorPrimary"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/iv_lista"
+            app:layout_constraintTop_toTopOf="@+id/iv_lista" />
+
+        <TextView
+            android:id="@+id/tv_numero_albuns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:text="Numero de albuns "
+            android:textColor="@color/colorSecondaryLight"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_nome_lista_lista"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nome_lista_lista" />
+
+        <TextView
+            android:id="@+id/tv_lista_autor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="sans-serif"
+            android:text="Autor"
+            android:textColor="@color/colorSecondaryLight"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tv_numero_albuns"
+            app:layout_constraintTop_toBottomOf="@+id/tv_numero_albuns" />
+
+        <RatingBar
+            android:id="@+id/rb_avaliacao_lista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:numStars="5"
+            android:stepSize="0.5"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_avaliacao_media_lista"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_avaliacao_media_lista" />
+
+        <TextView
+            android:id="@+id/tv_avaliacao_media_lista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:padding="0.5dp"
+            android:text="2.5"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_lista_autor" />
+
+        <TextView
+            android:id="@+id/tv_avaliacao_usuario_lista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sua avaliação"
+            android:textColor="@color/colorSecondaryLight"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_avaliacao_usuario_descricao_lista"
+            app:layout_constraintEnd_toEndOf="@+id/rb_avaliacao_lista"
+            app:layout_constraintStart_toStartOf="@+id/rb_avaliacao_lista"
+            app:layout_constraintTop_toBottomOf="@+id/rb_avaliacao_lista" />
+
+        <TextView
+            android:id="@+id/tv_avaliacao_usuario_descricao_lista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Média"
+            android:textColor="@color/colorSecondaryLight"
+            app:layout_constraintEnd_toEndOf="@+id/tv_avaliacao_media_lista"
+            app:layout_constraintStart_toStartOf="@+id/tv_avaliacao_media_lista"
+            app:layout_constraintTop_toBottomOf="@+id/rb_avaliacao_lista" />
+
+        <TextView
+            android:id="@+id/tv_descricao_lista"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="59dp"
+            android:text="Sobre a lista"
+            android:textAlignment="center"
+            android:textColor="@color/colorSecondary"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_avaliacao_usuario_lista" />
+
+        <TextView
+            android:id="@+id/tv_albuns_lista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:text="Álbuns"
+            android:textColor="@color/colorPrimary"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_descricao_lista" />
+
+        <ImageButton
+            android:id="@+id/ib_ver_albuns_lista"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/colorSecondary"
+            android:src="@drawable/ic_esconder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_albuns_lista" />
+
+        <ListView
+            android:id="@+id/lv_albuns_lista"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_albuns_lista" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

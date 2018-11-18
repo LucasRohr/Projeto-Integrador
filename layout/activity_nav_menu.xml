@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.alunoinfo.melodiam.activities.NavMenuActivity">
+    tools:context="com.example.douglas.melodiam.activities.NavMenuActivity">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/nav_menu"
@@ -13,8 +13,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         app:itemBackground="@color/colorSecondary"
-        app:itemIconTint="@color/nav_items_colors"
-        app:itemTextColor="@color/nav_items_colors"
         app:menu="@menu/nav_items"
         tools:ignore="RtlCompat">
 
